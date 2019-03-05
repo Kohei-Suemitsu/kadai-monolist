@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @items = @user.items.uniq
+    @count_want = @user.want_items.count
+    @count_have = @user.have_items.count
   end
 
   def new
@@ -16,7 +19,7 @@ class UsersController < ApplicationController
       flash[:success] = 'ユーザを登録しました。'
       redirect_to @user
     else
-      flash.noe[:danger] = 'ユーザの登録に失敗しました。'
+      flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
     end
   end
